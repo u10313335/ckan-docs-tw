@@ -64,11 +64,11 @@ a. 新增放置 ckan 設定檔之目錄：
       sudo mkdir -p /etc/ckan/default
       sudo chown -R `whoami` /etc/ckan/
 
-b. 回到 ckan source 目錄，透過 paster 新增範例設定檔：
+b. 透過 paster 新增範例設定檔：
 
    .. important::
 
-      執行任何 paster 指令時，請確認是在 virtualenv 下，且在 /usr/lib/ckan/default/src/ckan 目錄下
+      執行任何 paster 指令時，請確認是在 virtualenv 下
 
    .. code-block:: bash
 
@@ -160,7 +160,9 @@ c. 設定 solr：
   
    .. note::
 
-      去除此行，是一個已知問題的暫時解法: https://issues.apache.org/jira/browse/SOLR-4890
+      去除此行，是 solr 4.3.x 一個已知問題的暫時解法: https://issues.apache.org/jira/browse/SOLR-4890
+
+      solr 4.4 已解決此問題
 
 d. 安裝 IKAnalyzer：
 
@@ -201,11 +203,10 @@ g. 打開瀏覽器，前往 http://127.0.0.1:8983/solr ，若能看到畫面則�
 
 7. 初始化資料庫
 ------------------------
-a. 回到 ckan source 目錄，透過 paster 初始化 ckan db：
+a. 透過 paster 初始化 ckan db：
 
    .. code-block:: bash
 
-      cd /usr/lib/ckan/default/src/ckan
       paster db init -c /etc/ckan/default/development.ini
 
 b. 如果一切正常，則會看到此訊息：Initialising DB: SUCCESS
@@ -218,11 +219,10 @@ b. 如果一切正常，則會看到此訊息：Initialising DB: SUCCESS
 
 9. 新增 ckan 系統管理者
 ------------------------
-   回到 ckan source 目錄，透過 paster 新增 ckan 系統管理者：
+   透過 paster 新增 ckan 系統管理者：
 
    .. code-block:: bash
 
-      cd /usr/lib/ckan/default/src/ckan
       paster sysadmin add admin -c /etc/ckan/default/development.ini
 
    .. note::
@@ -231,11 +231,10 @@ b. 如果一切正常，則會看到此訊息：Initialising DB: SUCCESS
 
 10. 在 development 環境下執行
 ------------------------------
-a. 回到 ckan source 目錄，透過 paster serve 新安裝的 ckan instance：
+a. 透過 paster serve 新安裝的 ckan instance：
 
    .. code-block:: bash
 
-      cd /usr/lib/ckan/default/src/ckan
       paster serve /etc/ckan/default/development.ini
 
 b. 打開瀏覽器，前往 http://127.0.0.1:5000/ ，至此 ckan 安裝完成

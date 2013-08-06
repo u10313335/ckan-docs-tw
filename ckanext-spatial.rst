@@ -50,7 +50,22 @@ d. 修改 ckan 設定檔：
 
    並修改 ckan.plugins 參數，增加需要的外掛（參見下文介紹）。
 
-e. 新增 Spatial Search Widget：
+e. 修改 solr schema：
+
+   打開 solr schema（一般位於 /usr/share/solr/collection1/conf/solrconfig.xml），找到 <fields> 區段，加上：
+
+   .. code-block:: xml
+      
+      <fields>
+          <!-- ... -->
+          <field name="bbox_area" type="float" indexed="true" stored="true" />
+          <field name="maxx" type="float" indexed="true" stored="true" />
+          <field name="maxy" type="float" indexed="true" stored="true" />
+          <field name="minx" type="float" indexed="true" stored="true" />
+          <field name="miny" type="float" indexed="true" stored="true" />
+      </fields>
+
+f. 新增 Spatial Search Widget：
 
    打開 cakn source 目錄下的 ./ckan/templates/package/search.html，在 {% block secondary_content %} 段落中加入
 
@@ -58,7 +73,7 @@ e. 新增 Spatial Search Widget：
 
       {% snippet "spatial/snippets/spatial_query.html" %}
 
-f. 新增 Dataset Extent Map (widget)：
+g. 新增 Dataset Extent Map (widget)：
 
    打開 cakn source 目錄下的 ./ckan/templates/package/read.html，在最後加入
 
@@ -93,7 +108,7 @@ Dataset Extent Map
 ^^^^^^^^^^^^^^^^^^^
 以地圖顯示資料集 "spatial" 欄位所述之地理空間資訊 (僅支援 geojson 格式)。
 
-欲使用此功能，請在 ckan.plugins 加入 spatial_metadata 與 spatial_query。
+欲使用此功能，請在 ckan.plugins 加入 spatial_metadata。
 
 如下圖所示，在「額外的資訊」中填寫的 spatial geojson 資訊，將顯示在左下角的 Dataset extent 中。
 

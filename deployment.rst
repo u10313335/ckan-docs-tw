@@ -60,12 +60,11 @@ b. 建立 alies 至 sites-enabled：
 
 5. uwsgi 設定
 ----------------
-   回到 ckan source 目錄，在 virtual env 下安裝 uwsgi：
+   在 virtual env 下安裝 uwsgi：
 
    .. code-block:: bash
 
       . /usr/lib/ckan/default/bin/activate
-      cd /usr/lib/ckan/default/src/ckan
       pip install uwsgi
 
 6. 執行與測試

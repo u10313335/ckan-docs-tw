@@ -42,7 +42,7 @@ master_doc = 'index'
 # General information about the project.
 project = u'ckan 2.0 Installation Notes'
 
-copyright = u'本著作係採用創用 CC 姓名標示-相同方式分享 3.0 台灣授權條款授權.'
+copyright = u'本著作係採用創用 CC 姓名標示-相同方式分享 3.0 台灣授權條款授權'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
