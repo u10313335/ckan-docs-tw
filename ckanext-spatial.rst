@@ -10,7 +10,7 @@ ckanext-spatial 是一個 ckan 的延伸套件 (extension)，提供地理資訊�
 * Python (2 or 3) 安裝於 virtualenv
 * ckan (>=1.8)
 * solr (>=3.1)
-* ckanext-harvest (ckan 延伸套件)：外掛 :ref:`cswserver` 需要
+* `ckanext-harvest <https://github.com/okfn/ckanext-harvest>`_ (ckan 延伸套件)：外掛 :ref:`spatial-harvesters` 需要
 
 .. note::
 
@@ -135,12 +135,54 @@ GeoJSON Preview
 
 支援 geojson 與 gjson 兩種檔案格式名稱定義。
 
-.. _cswserver:
-
 CSW Server
 ^^^^^^^^^^^
 提供 WMS 服務介面（研究中）。
 
+.. _spatial-harvesters:
+
 Spatial Harvesters
 ^^^^^^^^^^^^^^^^^^^
-提供地理空間相關的 harvester（研究中）。
+提供地理空間相關的 harvesters。
+
+欲使用此功能，請安裝 `ckanext-harvest 外掛 <https://github.com/okfn/ckanext-harvest>`_ 並在 ckan.plugins 加入 csw_harvester, doc_harvester 與 waf_harvester。
+
+a. 新增 harvest source：
+
+   使用瀏覽器開啟 SITE_URL/harvest，選取右上之 "Add Harvest source"，依照畫面輸入 source 網址及選取 source 類別。
+   .. note::
+      
+      若您有成功安裝 ckanext-spatial 套件並啟用上述三個 plugins，應該可以看到 "CKAN, CSW Server, Web Accessible Folder (WAF), Single spatial metadata document" 四種 source 類別
+
+b. 執行 harvest 工作（手動）：
+
+   進入 virtualenv，執行 gather 與 fetch handler：
+
+   .. code-block:: bash
+      
+      (pyenv) $ paster --plugin=ckanext-harvest harvester gather_consumer -c /etc/ckan/default/production.ini
+      (pyenv) $ paster --plugin=ckanext-harvest harvester fetch_consumer -c /etc/ckan/default/production.ini
+
+   .. note::
+
+      請勿關閉這兩個 handler
+
+   使用瀏覽器開啟 SITE_URL/harvest，進入剛才建立的 harvest source，選擇右上的「管理者」按鈕，在接下來的頁面選取 "Reharvest"，將此 harvest 工作送入排程。
+
+   最後進入 virtualenv，執行 run handler：
+
+   .. code-block:: bash
+
+      (pyenv) $ paster --plugin=ckanext-harvest harvester run -c /etc/ckan/default/production.ini
+
+   即會立即開始執行剛才加入的工作排程。
+
+c. 執行 harvest 工作（自動）：
+
+d. 使用經驗：
+
+   ckanext-spatial 提供的 havester 現階段 (0.2) 並不穩定，匯入大量資料很緩慢（實測 11,400 筆左右需時 3 小時），且容易因 source 缺少某些欄位值而引發 python exception。另外於 import stage 時若持續發生 error，即使在 conf 檔案設定忽略，也會發生卡死的情況。
+
+   並且，只要一卡死，harvest 工作就不算完成，要重新開始僅能清除所有已下載下來的 metadata，再執行一次。
+
+   * 目前僅測試 csw harvester 成功。

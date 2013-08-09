@@ -5,7 +5,7 @@ ckan 安裝
 ------------------------
    .. code-block:: bash
 
-      sudo apt-get install python-dev postgresql libpq-dev python-pip python-virtualenv git-core jetty8 openjdk-7-jdk
+      $ $ sudo apt-get install python-dev postgresql libpq-dev python-pip python-virtualenv git-core jetty8 openjdk-7-jdk
 
 2. Virtual environment 設定
 ----------------------------
@@ -13,15 +13,15 @@ a. 新增一個 virtual environment (virtualenv) 供 ckan 使用：
 
    .. code-block:: bash
 
-      sudo mkdir -p /usr/lib/ckan/default
-      sudo chown `whoami` /usr/lib/ckan/default
-      virtualenv --no-site-packages /usr/lib/ckan/default
+      $ sudo mkdir -p /usr/lib/ckan/default
+      $ sudo chown `whoami` /usr/lib/ckan/default
+      $ virtualenv --no-site-packages /usr/lib/ckan/default
 
 b. 進入剛才新增的 virtualenv：
 
    .. code-block:: bash
 
-      . /usr/lib/ckan/default/bin/activate
+      $ . /usr/lib/ckan/default/bin/activate
 
    .. note::
 
@@ -33,13 +33,13 @@ b. 進入剛才新增的 virtualenv：
 
    .. code-block:: bash
 
-      pip install -e 'git+https://github.com/okfn/ckan.git@ckan-2.0#egg=ckan'
+      (pyenv) $ pip install -e 'git+https://github.com/okfn/ckan.git@ckan-2.0#egg=ckan'
 
    安裝所需 Python 套件：
 
    .. code-block:: bash
 
-      pip install -r /usr/lib/ckan/default/src/ckan/pip-requirements.txt
+      (pyenv) $ pip install -r /usr/lib/ckan/default/src/ckan/pip-requirements.txt
 
 4. 設定資料庫
 --------------
@@ -47,13 +47,13 @@ a. 新增 ckan 使用之 postgreSQL 使用者：
 
    .. code-block:: bash
 
-      sudo -u postgres createuser -S -D -R -P ckan_default
+      $ sudo -u postgres createuser -S -D -R -P ckan_default
 
 b. 新增 ckan 使用之資料庫：
 
    .. code-block:: bash
 
-      sudo -u postgres createdb -O ckan_default ckan_default -E utf-8
+      $ sudo -u postgres createdb -O ckan_default ckan_default -E utf-8
 
 5. 建立 ckan 設定檔
 --------------------
@@ -61,8 +61,8 @@ a. 新增放置 ckan 設定檔之目錄：
 
    .. code-block:: bash
 
-      sudo mkdir -p /etc/ckan/default
-      sudo chown -R `whoami` /etc/ckan/
+      $ sudo mkdir -p /etc/ckan/default
+      $ sudo chown -R `whoami` /etc/ckan/
 
 b. 透過 paster 新增範例設定檔：
 
@@ -72,14 +72,14 @@ b. 透過 paster 新增範例設定檔：
 
    .. code-block:: bash
 
-      cd /usr/lib/ckan/default/src/ckan
-      paster make-config ckan /etc/ckan/default/development.ini
+      (pyenv) $ paster make-config ckan /etc/ckan/default/development.ini
 
 c. 修改前面新增的 development.ini，搜尋下面字串，並將帳號密碼與 db 名稱依照 4. 所新增的 db 設定：
 
    .. code-block:: ini
 
       sqlalchemy.url = postgresql://ckan_default:pass@localhost/ckan_default
+
    .. note::
 
       第一個 ckan_default 是使用者名稱，pass 請填寫 db 密碼，最後的 ckan_default 填入 db 名稱）
@@ -105,7 +105,7 @@ b. 安裝 solr4：
 
    .. code-block:: bash
 
-      sudo cp solr-4.3.1.war /usr/share/jetty8/webapps/solr/solr.war
+      $ sudo cp solr-4.3.1.war /usr/share/jetty8/webapps/solr/solr.war
 
    複製以下目錄至指定位置：
 
@@ -119,20 +119,20 @@ b. 安裝 solr4：
    
    .. code-block:: bash
    
-      sudo chown -R jetty:adm /usr/share/solr
+      $ sudo chown -R jetty:adm /usr/share/solr
 
    新增 schema symlink：
 
    .. code-block:: bash
 
-      sudo mv /usr/share/solr/collection1/conf/schema.xml /usr/share/solr/collection1/conf/schema.xml.bak
-      sudo ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema-2.0.xml /usr/share/solr/collection1/conf/schema.xml
+      $ sudo mv /usr/share/solr/collection1/conf/schema.xml /usr/share/solr/collection1/conf/schema.xml.bak
+      $ sudo ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema-2.0.xml /usr/share/solr/collection1/conf/schema.xml
 
    為放置 IKA，需解開 solr-4.3.1.war：
    
    .. code-block:: bash
       
-      jar -xvf solr.war
+      $ jar -xvf solr.war
 
 c. 設定 solr：
 
@@ -196,7 +196,7 @@ f. 啟動 jetty：
 
    .. code-block:: bash
 
-      sudo service jetty8 start
+      $ sudo service jetty8 start
 
 g. 打開瀏覽器，前往 http://127.0.0.1:8983/solr ，若能看到畫面則代表安裝完成
 
@@ -207,7 +207,7 @@ a. 透過 paster 初始化 ckan db：
 
    .. code-block:: bash
 
-      paster db init -c /etc/ckan/default/development.ini
+      (pyenv) $ paster db init -c /etc/ckan/default/development.ini
 
 b. 如果一切正常，則會看到此訊息：Initialising DB: SUCCESS
 
@@ -215,7 +215,7 @@ b. 如果一切正常，則會看到此訊息：Initialising DB: SUCCESS
 ------------------------
    .. code-block:: bash
 
-      ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
+      $ ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
 
 9. 新增 ckan 系統管理者
 ------------------------
@@ -223,7 +223,7 @@ b. 如果一切正常，則會看到此訊息：Initialising DB: SUCCESS
 
    .. code-block:: bash
 
-      paster sysadmin add admin -c /etc/ckan/default/development.ini
+      (pyenv) $ paster sysadmin add admin -c /etc/ckan/default/development.ini
 
    .. note::
 
@@ -235,6 +235,6 @@ a. 透過 paster serve 新安裝的 ckan instance：
 
    .. code-block:: bash
 
-      paster serve /etc/ckan/default/development.ini
+      (pyenv) $ paster serve /etc/ckan/default/development.ini
 
 b. 打開瀏覽器，前往 http://127.0.0.1:5000/ ，至此 ckan 安裝完成

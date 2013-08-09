@@ -7,7 +7,7 @@ ckan 佈署
 --------------------------------
    .. code-block:: bash
 
-      cp /etc/ckan/default/development.ini /etc/ckan/default/production.ini
+      $ cp /etc/ckan/default/development.ini /etc/ckan/default/production.ini
 
 2. 修改 production.ini
 ------------------------
@@ -32,7 +32,7 @@ ckan 佈署
 ----------------
    .. code-block:: bash
 
-      sudo apt-get install nginx
+      $ sudo apt-get install nginx
 
 4. nginx 伺服器設定
 ----------------------
@@ -56,7 +56,7 @@ b. 建立 alies 至 sites-enabled：
 
    .. code-block:: bash
 
-      sudo ln -s /etc/nginx/sites-available/ckan /etc/nginx/sites-enabled/ckan
+      $ sudo ln -s /etc/nginx/sites-available/ckan /etc/nginx/sites-enabled/ckan
 
 5. uwsgi 設定
 ----------------
@@ -64,8 +64,8 @@ b. 建立 alies 至 sites-enabled：
 
    .. code-block:: bash
 
-      . /usr/lib/ckan/default/bin/activate
-      pip install uwsgi
+      $ . /usr/lib/ckan/default/bin/activate
+      (pyenv) $ pip install uwsgi
 
 6. 執行與測試
 -------------------------
@@ -73,7 +73,7 @@ a. 不要離開 virtual env，執行 nginx 與 uwsgi：
 
    .. code-block:: bash
 
-      sudo service nginx start
-      uwsgi --ini-paste /etc/ckan/default/production.ini
+      $ sudo service nginx start
+      (pyenv) $ uwsgi --ini-paste /etc/ckan/default/production.ini
 
 b. 打開瀏覽器，前往 http://127.0.0.1/ ，若能看到頁面，恭喜您已經完成所有設定！
