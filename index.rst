@@ -12,7 +12,7 @@ ckan 是著名的開放原始碼資料入口平台（Data Portal Platform），
 他的功能非常多，除了 data repository 外，還支援 visualize、search、tag、revision、share、organization…，
 更有許多的 plugins 可以強化其功能。
 
-使用 ckan 最有名的專案就是英國政府開放資料平台 data.gov.uk 了。 
+使用 ckan 最有名的專案，係英國政府開放資料平台 data.gov.uk。
 
 ckan 使用以 Python 為基礎的 Pylons 網頁框架開發，template 使用 jinja（神社）2，多國語言支援採用 Babel 系統，資料庫使用 PostgreSQL，ORM 是 Pylons 推薦的 SQLAlchemy，搜尋功能則使用 Apache Solr 實作，同時搭配 jetty 作為 servlet container。
 
