@@ -25,7 +25,8 @@ ckan 使用以 Python 為基礎的 Pylons 網頁框架開發，template 使用 j
    install
    deployment
    ckanext-spatial
-
+   ckanext-harvest
+   rdf
 
 Indices and tables
 ==================
