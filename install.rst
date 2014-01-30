@@ -5,7 +5,7 @@ ckan 安裝
 ------------------------
    .. code-block:: bash
 
-      $ $ sudo apt-get install python-dev postgresql libpq-dev python-pip python-virtualenv git-core jetty8 openjdk-7-jdk
+      $ sudo apt-get install python-dev postgresql libpq-dev python-pip python-virtualenv git-core jetty8 openjdk-7-jdk
 
 2. Virtual environment 設定
 ----------------------------
@@ -97,23 +97,27 @@ a. 修改 jetty 設定（位於 /etc/default/jetty8）：
 
 b. 安裝 solr4：
 
-   至官網 http://lucene.apache.org/solr/ 下載 solr-4.3.1
+   至官網 http://lucene.apache.org/solr/ 下載 solr-4.6.1
    
    解壓縮下載回來的壓縮檔
    
-   並複製 ./dist 下的 solr-4.3.1.war 至 jetty webapps 目錄（solr 目錄請自行建立）：
+   並複製 ./dist 下的 solr-4.6.1.war 至 jetty webapps 目錄（solr 目錄請自行建立）：
 
    .. code-block:: bash
 
-      $ sudo cp solr-4.3.1.war /usr/share/jetty8/webapps/solr/solr.war
+      $ sudo cp solr-4.6.1.war /usr/share/jetty8/webapps/solr/solr.war
 
    複製以下目錄至指定位置：
 
-   複製 ./example/solr 至 /usr/share（此即為 solr_home）
+   複製 ./example/solr 至 /usr/share
 
    複製 ./contrib 至 /usr/share/solr/bin
 
    複製 ./dist 至 /usr/share/solr
+
+   複製 ./example/lib/ext 下的所有 jar 檔案至 /usr/share/jetty8/webapps/solr/WEB-INF/lib
+
+   複製 ./example/resources/log4j.properties 至 /usr/share/jetty8/webapps/solr/WEB-INF/classes
 
    修改 solr 目錄權限，使 jetty 可以存取：
    
@@ -128,43 +132,13 @@ b. 安裝 solr4：
       $ sudo mv /usr/share/solr/collection1/conf/schema.xml /usr/share/solr/collection1/conf/schema.xml.bak
       $ sudo ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema-2.0.xml /usr/share/solr/collection1/conf/schema.xml
 
-   為放置 IKA，需解開 solr-4.3.1.war：
+   為放置 IKA，需解開 solr-4.6.1.war：
    
    .. code-block:: bash
       
       $ jar -xvf solr.war
 
-c. 設定 solr：
-
-   打開 /usr/share/solr/collection1/conf/solrconfig.xml，尋找 <lib dir> 區段並修改為：
-
-   .. code-block:: xml
-
-      <lib dir="/usr/share/solr/bin/contrib/extraction/lib" regex=".*\.jar" />
-      <lib dir="/usr/share/solr/dist/" regex="solr-cell-\d.*\.jar" />
-
-      <lib dir="/usr/share/solr/bin/contrib/clustering/lib/" regex=".*\.jar" />
-      <lib dir="/usr/share/solr/dist/" regex="solr-clustering-\d.*\.jar" />
-
-      <lib dir="/usr/share/solr/bin/contrib/langid/lib/" regex=".*\.jar" />
-      <lib dir="/usr/share/solr/dist/" regex="solr-langid-\d.*\.jar" />
-
-      <lib dir="/usr/share/solr/bin/contrib/velocity/lib" regex=".*\.jar" />
-      <lib dir="/usr/share/solr/dist/" regex="solr-velocity-\d.*\.jar" />
-
-   並刪除或註解掉此行:
-   
-   .. code-block:: xml
-
-      <lib dir="/non/existent/dir/yields/warning" />
-  
-   .. note::
-
-      去除此行，是 solr 4.3.x 一個已知問題的暫時解法: https://issues.apache.org/jira/browse/SOLR-4890
-
-      solr 4.4 已解決此問題
-
-d. 安裝 IKAnalyzer：
+c. 安裝 IKAnalyzer：
 
    下載 IKAnalyzer https://ik-analyzer.googlecode.com/files/IK%20Analyzer%202012FF_hf1.zip 並解壓縮
 
@@ -172,7 +146,7 @@ d. 安裝 IKAnalyzer：
   
    複製 IKAnalyzer.cfg.xml 和 stopword.dic 至 /var/lib/jetty8/webapps/solr/WEB-INF/class
 
-e. 設定 IKAnalyzer：
+d. 設定 IKAnalyzer：
 
    修改 schema.xml，fieldType name="text" 區段修改為：
 
@@ -192,13 +166,13 @@ e. 設定 IKAnalyzer：
 
        schema.xml 位於 /usr/share/solr/collection1/conf/schema.xml
 
-f. 啟動 jetty：
+e. 啟動 jetty：
 
    .. code-block:: bash
 
       $ sudo service jetty8 start
 
-g. 打開瀏覽器，前往 http://127.0.0.1:8983/solr ，若能看到畫面則代表安裝完成
+f. 打開瀏覽器，前往 http://127.0.0.1:8983/solr ，若能看到畫面則代表安裝完成
 
 
 7. 初始化資料庫

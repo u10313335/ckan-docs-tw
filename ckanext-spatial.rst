@@ -125,7 +125,7 @@ b. 安裝其他需要的 Python 套件：
 
 c. 安裝 PostGIS：
 
-   請直接參考 `官方的安裝說明 <https://github.com/okfn/ckanext-spatial#setting-up-postgis>`_ 。
+   請直接參考 `官方的安裝說明 <http://docs.ckan.org/projects/ckanext-spatial/en/latest/install.html#install-postgis-and-system-packages>`_ 。
 
 d. 修改 ckan 設定檔：
 
