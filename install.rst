@@ -115,10 +115,6 @@ b. 安裝 solr4：
 
    複製 ./dist 至 /usr/share/solr
 
-   複製 ./example/lib/ext 下的所有 jar 檔案至 /usr/share/jetty8/webapps/solr/WEB-INF/lib
-
-   複製 ./example/resources/log4j.properties 至 /usr/share/jetty8/webapps/solr/WEB-INF/classes
-
    修改 solr 目錄權限，使 jetty 可以存取：
    
    .. code-block:: bash
@@ -132,11 +128,15 @@ b. 安裝 solr4：
       $ sudo mv /usr/share/solr/collection1/conf/schema.xml /usr/share/solr/collection1/conf/schema.xml.bak
       $ sudo ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema-2.0.xml /usr/share/solr/collection1/conf/schema.xml
 
-   為放置 IKA，需解開 solr-4.6.1.war：
+   解壓縮 solr-4.6.1.war：
    
    .. code-block:: bash
       
       $ jar -xvf solr.war
+
+   複製 b. 所下載之 solr 壓縮檔中之 ./example/lib/ext 下的所有 jar 檔案至 /usr/share/jetty8/webapps/solr/WEB-INF/lib
+
+   承上，複製 ./example/resources/log4j.properties 至 /usr/share/jetty8/webapps/solr/WEB-INF/classes
 
 c. 安裝 IKAnalyzer：
 
