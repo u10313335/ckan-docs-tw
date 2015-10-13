@@ -1,16 +1,18 @@
+.. _ckanext-harvest:
+
 ckanext-harvest
 ===============
 
-ckanext-harvest 是一個 ckan 的延伸套件（extension），提供一可自訂之介面（interface），以擷取其他網站（或服務）之 metadata，並匯入為 ckan 資料集。
+ckanext-harvest 是一個 CKAN 的擴充套件（extension），提供一可自訂之介面（interface），以擷取其他網站（或服務）之 metadata，並匯入為 CKAN 資料集。
 
 harvest 的運作大致可分為三步驟（同時也是設計 harvesting interface 的主要結構）:
 
 * gather: 取得 harvest source 的 id, 數量等基本資訊。
 * fetch: 取得 source 中每個 object（物件，或稱資料集）之 metadata。
-* import: 將上一階段取得的 metadata 轉換並建立為 ckan package（資料集）。
+* import: 將上一階段取得的 metadata 轉換並建立為 CKAN package（資料集）。
 
-外掛主要功能簡介與使用
-----------------------
+功能簡介與使用
+--------------
 
 新增 harvest source
 ^^^^^^^^^^^^^^^^^^^^
@@ -160,12 +162,10 @@ e. 進行排程設定，請加入以下文字於 crontab 設定中：
 如先前所述，ckanext-harvest 提供可以自行定義的 interface，因此您可以為某個網站，或某種資料來源，特別製作 harvester。
 
 * 本人撰寫之 `中研院調查研究中心（SRDA）資料庫 <https://srda.sinica.edu.tw/>`_ harvester： `SRDAHarvester <https://github.com/u10313335/ckanext-harvest/blob/master/ckanext/harvest/harvesters/srdaharvester.py>`_
-* ckan 官方提供之 csv harvester 範例： `DataLondonGovUkHarvester <https://github.com/okfn/ckanext-pdeu/blob/master/ckanext/pdeu/harvesters/london.py>`_
+* CKAN 官方提供之 csv harvester 範例： `DataLondonGovUkHarvester <https://github.com/okfn/ckanext-pdeu/blob/master/ckanext/pdeu/harvesters/london.py>`_
 
 系統需求
 --------
-* Python (2 or 3) 安裝於 virtualenv
-* ckan
 * RabbitMQ 或 Redis
 
 安裝
@@ -181,11 +181,7 @@ b. 安裝 ckanext-harvest 套件：
 
    .. code-block:: bash
 
-      (pyenv) $ pip install -e git+https://github.com/okfn/ckanext-harvest.git@release-v2.0#egg=ckanext-harvest
-
-   .. note::
-
-      release-v2.0 請自行依 ckan 版本替換之
+      (pyenv) $ pip install -e git+https://github.com/okfn/ckanext-harvest.git#egg=ckanext-harvest
 
 c. 安裝其他需要的 Python 套件：
 
@@ -193,7 +189,7 @@ c. 安裝其他需要的 Python 套件：
 
       (pyenv) $ pip install -r pip-requirements.txt
 
-d. 修改 ckan 設定檔，修改 ckan.plugins，加入：
+d. 修改 CKAN 設定檔，修改 ckan.plugins，加入：
 
    .. code-block:: python
 
