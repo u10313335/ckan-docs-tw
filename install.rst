@@ -104,7 +104,7 @@ a. 下載並解壓縮 solr:
    .. code-block:: bash
 
       $ cd ~
-      $ wget http://apache.mirror1.spango.com/lucene/solr/5.1.0/solr-5.1.0.tgz
+      $ wget http://archive.apache.org/dist/lucene/solr/5.1.0/solr-5.1.0.tgz
       $ tar xzf solr-5.1.0.tgz solr-5.1.0/bin/install_solr_service.sh --strip-components=2
 
 b. 執行 solr 安裝腳本:
@@ -120,6 +120,8 @@ c. 建立供 CKAN 使用之 solr configset:
       $ sudo -u solr mkdir -p /var/solr/data/configsets/ckan/conf
       $ sudo ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml /var/solr/data/configsets/ckan/conf/schema.xml
       $ sudo -u solr cp /opt/solr/server/solr/configsets/basic_configs/conf/solrconfig.xml /var/solr/data/configsets/ckan/conf/.
+      $ sudo -u solr touch /var/solr/data/configsets/ckan/conf/protwords.txt
+      $ sudo -u solr touch /var/solr/data/configsets/ckan/conf/synonyms.txt
 
 d. 下載並將中文斷詞函式庫 `mmesg4j <http://pan.baidu.com/s/1dD7qMFf>`_ 之 jar 檔案複製至 solr 目錄 (/opt/solr/server/solr-webapp/webapp/WEB-INF/lib)
 
